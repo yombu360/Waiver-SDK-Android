@@ -21,7 +21,6 @@ class Constants {
     static final String SHARED_PREF_NAME = "yombu_shared_pref";
     static final String SHARED_PREF_DEVICE_CONFIG = "device_config";
     static final String SHARED_PREF_DEVICE_ID = "device_id";
-    static final String SHARED_PREF_LAST_KEY_ROTATION_TIME = "last_key_rotation_time";
     static final String SHARED_PREF_SELECTED_LANGUAGE = "selected_language";
 
 
