@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yombu.waiverlibrary">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity
+            android:name=".ActivityWaiver"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Yombu.NoActionBar" />
+        <activity
+            android:name=".ActivityTermsAndConditions"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Yombu.NoActionBar" />
+
+        <provider
+            android:name=".YombuWaiverInitProvider" android:exported="false" 
+            android:authorities="${applicationId}.YombuWaiverInitProvider" />
+    </application>
+
+</manifest>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="YombuGold">#eda220</color>
+    <color name="YombuMagenta">#d91b52</color>
+    <color name="YombuBlue">#12BEF2</color>
+    <color name="YombuGray">#4a4a4a</color>
+    <color name="YombuRed">#D93105</color>
+    <color name="YombuGreen">#59B142</color>
+    <color name="YombuAffirmativeButton">@color/YombuGreen</color>
+    <color name="YombuNegativeButton">@color/YombuRed</color>
+
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#d91b52</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000ff</color>
+    <color name="black">#000000</color>
+    <color name="ShadowGray">#7f000000</color>
+    <color name="LightGrey">#cccccc</color>
+    <color name="darkgreen">#12a830</color>
+
+    <color name="YesButton">#59B142</color>
+    <color name="NoButton">#D93105</color>
+</resources>
