@@ -13,10 +13,6 @@ class Constants {
     static final String API_TERMINAL_INITIALIZATION = "/pos/v1/reseller/{rid}/device";
 
 
-    // Date Time Parsing & Formatting Constants
-    static final String DATE_FORMAT_FOR_WAIVER = "MMMM d, yyyy";
-
-
     // Storage Constants
     static final String SHARED_PREF_NAME = "yombu_shared_pref";
     static final String SHARED_PREF_DEVICE_CONFIG = "device_config";
