@@ -12,7 +12,7 @@ allprojects {
 
 2. Add the gradle implementation for the library in application level Gradle file
 
-```implementation 'com.github.yombu360:Waiver-SDK-Android:0.1.1-alpha'```
+```implementation 'com.github.yombu360:Waiver-SDK-Android:0.1.2-alpha'```
 
 3. The main class YombuWaiver can be used to handle all the task related to waiver part. In order to use this library the app needs to be initialized first using the following method:
 ```
