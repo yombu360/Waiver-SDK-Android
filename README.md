@@ -12,7 +12,7 @@ allprojects {
 
 2. Add the gradle implementation for the library in application level Gradle file
 
-```implementation 'com.github.yombu360:Waiver-SDK-Android:0.1.2-alpha'```
+```implementation 'com.github.yombu360:Waiver-SDK-Android:0.1.3-alpha'```
 
 3. The main class YombuWaiver can be used to handle all the task related to waiver part. In order to use this library the app needs to be initialized first using the following method:
 ```
@@ -55,4 +55,4 @@ There are different methods available for setting and clearing data in the Yombu
 ```
 YombuWaiver.getInstance().displayWaiver(YombuWaiverProcessingCallback);
 ```
-Waiver processing callback is an interface available in com.yombu.waiverlibrary.callbacks.YombuWaiverProcessingCallback which has two methods (i) `onWaiverSuccess()` -> Called if the processing of waiver is successful and (ii) `onWaiverFailure(String message)` -> Called if waiver processing fails with an error message as a parameter.
+Waiver processing callback is an interface available in com.yombu.waiverlibrary.callbacks.YombuWaiverProcessingCallback which has two methods (i) `onWaiverSuccess(String documentId)` -> Called if the processing of waiver is successful with a documentId as a parameter and (ii) `onWaiverFailure(String message)` -> Called if waiver processing fails with an error message as a parameter.
