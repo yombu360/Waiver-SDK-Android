@@ -63,15 +63,14 @@ public class YombuWaiver {
 
                 } else {
 
-                    ModelMyErrorResponse errorResponse = null;
+                    ModelOctopusErrorResponse errorResponse = null;
                     try {
-                        errorResponse = LibraryResponseConverter.convertToErrorResponse(response.errorBody());
+                        errorResponse = LibraryResponseConverter.convertToOctopusErrorResponse(response.errorBody());
                     } catch (Exception ex) {
                     }
-
                     String errorMessage = myContext.getString(R.string.unable_to_register_terminal);
-                    if (errorResponse != null && !errorResponse.getErrors().isEmpty()) {
-                        errorMessage = errorResponse.getErrors().get(0).getMessage();
+                    if (errorResponse != null) {
+                        errorMessage = errorResponse.getDevMessage();
                     }
 
                     initializationCallback.onInitializationFailure(errorMessage);

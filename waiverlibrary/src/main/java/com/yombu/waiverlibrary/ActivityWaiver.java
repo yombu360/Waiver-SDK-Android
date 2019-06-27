@@ -652,7 +652,7 @@ public class ActivityWaiver extends ActivityBase {
 
         String hearAboutUsOptions = session.getHearAboutUsOptions();
 
-        ApiUtils.getWaiverApiService(this).processMindbodyWaiver(
+        ApiUtils.getRegistrationApi(this).processWaiver(
                 waiverTemplateId,
                 receiveEmailNotification,
                 mindbodyId,
@@ -678,23 +678,27 @@ public class ActivityWaiver extends ActivityBase {
                 emergencyContactPhone,
                 minors,
                 hearAboutUsOptions
-        ).enqueue(new Callback<ModelMyResponse<ModelWaiverProcess>>() {
+        ).enqueue(new Callback<ModelWaiverProcess>() {
             @Override
-            public void onResponse(@NonNull Call<ModelMyResponse<ModelWaiverProcess>> call, @NonNull Response<ModelMyResponse<ModelWaiverProcess>> response) {
+            public void onResponse(@NonNull Call<ModelWaiverProcess> call, @NonNull Response<ModelWaiverProcess> response) {
                 waiverScreen();
                 if (response.isSuccessful()) {
-                    SessionCallbacks.getInstance().getWaiverCallback().onWaiverSuccess();
+                    String waiverId = "0";
+                    if (response.body() != null) {
+                        waiverId = response.body().getWaiverId();
+                    }
+                    SessionCallbacks.getInstance().getWaiverCallback().onWaiverSuccess(waiverId);
                     Session.getInstance().reset();
                     close();
                 } else {
-                    ModelMyErrorResponse errorResponse = null;
+                    ModelOctopusErrorResponse errorResponse = null;
                     try {
-                        errorResponse = LibraryResponseConverter.convertToErrorResponse(response.errorBody());
+                        errorResponse = LibraryResponseConverter.convertToOctopusErrorResponse(response.errorBody());
                     } catch (Exception ex) {
                     }
                     String errorMessage = getString(R.string.unable_to_process_waiver);
-                    if (errorResponse != null && !errorResponse.getErrors().isEmpty()) {
-                        errorMessage = errorResponse.getErrors().get(0).getMessage();
+                    if (errorResponse != null) {
+                        errorMessage = errorResponse.getDevMessage();
                     }
                     SessionCallbacks.getInstance().getWaiverCallback().onWaiverFailure(errorMessage);
                     finish();
@@ -702,7 +706,7 @@ public class ActivityWaiver extends ActivityBase {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ModelMyResponse<ModelWaiverProcess>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ModelWaiverProcess> call, @NonNull Throwable t) {
                 if (t instanceof TimeoutException) {
                     showRetryWaiverProcessingDialog(call, this);
                 } else {

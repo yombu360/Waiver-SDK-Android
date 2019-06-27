@@ -22,4 +22,16 @@ class LibraryResponseConverter {
         return null;
     }
 
+    public static ModelOctopusErrorResponse convertToOctopusErrorResponse(ResponseBody error) {
+        JsonParser parser = new JsonParser();
+        JsonElement mJson = null;
+        try {
+            mJson = parser.parse(error.string());
+            Gson gson = new Gson();
+            return gson.fromJson(mJson, ModelOctopusErrorResponse.class);
+        } catch (IOException ex) {
+        }
+        return null;
+    }
+
 }

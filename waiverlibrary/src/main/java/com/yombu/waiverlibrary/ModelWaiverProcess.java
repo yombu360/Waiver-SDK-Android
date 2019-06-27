@@ -7,6 +7,9 @@ import java.util.List;
 
 class ModelWaiverProcess {
 
+    @SerializedName("mindbody_id")
+    @Expose
+    private String mindbodyId;
     @SerializedName("waiver_id")
     @Expose
     private String waiverId;
@@ -19,6 +22,14 @@ class ModelWaiverProcess {
     @SerializedName("minor_list")
     @Expose
     private List<ModelWaiverMinor> waiverMinors;
+
+    public String getMindbodyId() {
+        return mindbodyId;
+    }
+
+    public void setMindbodyId(String mindbodyId) {
+        this.mindbodyId = mindbodyId;
+    }
 
     public String getWaiverId() {
         return waiverId;
@@ -54,12 +65,12 @@ class ModelWaiverProcess {
 
     @Override
     public String toString() {
-        return "WaiverProcessObject{" +
-                "waiverId='" + waiverId + '\'' +
+        return "ModelWaiverProcess{" +
+                "mindbodyId='" + mindbodyId + '\'' +
+                ", waiverId='" + waiverId + '\'' +
                 ", expiresAt='" + expiresAt + '\'' +
                 ", waiverTemplateId='" + waiverTemplateId + '\'' +
                 ", waiverMinors=" + waiverMinors +
                 '}';
     }
-
 }

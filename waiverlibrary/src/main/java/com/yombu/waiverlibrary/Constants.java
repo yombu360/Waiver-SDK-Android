@@ -9,7 +9,7 @@ class Constants {
 
     // Endpoints for making network calls
     static final String API_WAIVER_TEMPLATE = "/v5/store/{store_id}/waiver";
-    static final String API_WAIVER_MINDBODY = "/v5/waiver:mindbody";
+    static final String API_WAIVER = "/pos/v1/registration";
     static final String API_TERMINAL_INITIALIZATION = "/pos/v1/reseller/{rid}/device";
 
 

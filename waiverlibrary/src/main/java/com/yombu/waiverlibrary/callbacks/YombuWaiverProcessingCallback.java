@@ -2,7 +2,7 @@ package com.yombu.waiverlibrary.callbacks;
 
 public interface YombuWaiverProcessingCallback {
 
-    void onWaiverSuccess();
+    void onWaiverSuccess(String documentId);
 
     void onWaiverFailure(String message);
 
