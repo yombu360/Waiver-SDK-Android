@@ -146,7 +146,9 @@ public class YombuWaiver {
 
     public YombuWaiver addMinorsList(List<Minor> minors) {
         if (minors != null) {
-            Session.getInstance().setMinors(minors);
+            for (Minor minor : minors) {
+                Session.getInstance().addMinor(minor);
+            }
         }
         return myInstance;
     }
