@@ -116,10 +116,10 @@ public class ActivityWaiver extends ActivityBase {
         Glide.with(getApplicationContext()).load(R.drawable.busy_indicator).into(animatedProcessingView);
 
         String name;
-        if (session.getGuardianFirstName() != null || session.getGuardianLastName() != null) {
-            name = session.getGuardianFirstName() + " " + session.getGuardianLastName();
+        if (session.getUserData().get(YombuWaiver.Keys.GUARDIAN_FIRST_NAME) != null || session.getUserData().get(YombuWaiver.Keys.GUARDIAN_LAST_NAME) != null) {
+            name = session.getUserData().get(YombuWaiver.Keys.GUARDIAN_FIRST_NAME) + " " + session.getUserData().get(YombuWaiver.Keys.GUARDIAN_LAST_NAME);
         } else {
-            name = session.getFirstName() + " " + session.getLastName();
+            name = session.getUserData().get(YombuWaiver.Keys.FIRST_NAME) + " " + session.getUserData().get(YombuWaiver.Keys.LAST_NAME);
         }
         DateFormat df = new SimpleDateFormat(Constants.WAIVER_SCREEN_DATE_FORMAT, Locale.US);
         String date = df.format(Calendar.getInstance().getTime());
@@ -616,68 +616,26 @@ public class ActivityWaiver extends ActivityBase {
 
         String waiverTemplateId = session.getWaiverTemplateId();
         String receiveEmailNotification = session.getReceiveEmailNotification();
-
-        String mindbodyId = session.getMindbodyId();
-
-        String firstName = session.getFirstName();
-        String lastName = session.getLastName();
-        String phone = session.getPhone();
-        String email = session.getEmail();
-        String birthday = session.getBirthday();
-        String gender = session.getGender();
-        String ciNumber = session.getCiNumber();
-        String username = session.getUsername();
-        String password = session.getPassword();
         String signature = session.getSignature();
-
-        String address = session.getAddress();
-        String city = session.getCity();
-        String state = session.getState();
-        String zip = session.getZip();
-        String country = session.getCountry();
-
-        String guardianFirstName = session.getGuardianFirstName();
-        String guardianLastName = session.getGuardianLastName();
-
-        String emergencyContactFirstName = session.getEmergencyContactFirstName();
-        String emergencyContactLastName = session.getEmergencyContactLastName();
-        String emergencyContactPhone = session.getEmergencyContactPhone();
+        Map<String, String> userData = session.getUserData();
 
         Map<String, String> minors = new HashMap<>();
         for (int i = 0; i < session.getMinors().size(); i++) {
-            minors.put("minors[" + i + "][first_name]", session.getMinors().get(i).getFirstName());
-            minors.put("minors[" + i + "][last_name]", session.getMinors().get(i).getLastName());
-            minors.put("minors[" + i + "][dob]", session.getMinors().get(i).getDob());
+            Minor minor = session.getMinors().get(i);
+            minors.put("minors[" + i + "][first_name]", minor.getFirstName());
+            minors.put("minors[" + i + "][last_name]", minor.getLastName());
+            minors.put("minors[" + i + "][dob]", minor.getBirthday());
+            for (Map.Entry<String, String> entry : minor.getMinorData().entrySet()) {
+                minors.put("minors[" + i + "][" + entry.getKey() + "]", entry.getValue());
+            }
         }
-
-        String hearAboutUsOptions = session.getHearAboutUsOptions();
 
         ApiUtils.getRegistrationApi(this).processWaiver(
                 waiverTemplateId,
                 receiveEmailNotification,
-                mindbodyId,
-                firstName,
-                lastName,
-                phone,
-                email,
-                birthday,
-                gender,
-                ciNumber,
-                username,
-                password,
                 signature,
-                address,
-                city,
-                state,
-                zip,
-                country,
-                guardianFirstName,
-                guardianLastName,
-                emergencyContactFirstName,
-                emergencyContactLastName,
-                emergencyContactPhone,
-                minors,
-                hearAboutUsOptions
+                userData,
+                minors
         ).enqueue(new Callback<ModelWaiverProcess>() {
             @Override
             public void onResponse(@NonNull Call<ModelWaiverProcess> call, @NonNull Response<ModelWaiverProcess> response) {

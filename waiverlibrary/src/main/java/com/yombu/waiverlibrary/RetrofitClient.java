@@ -9,6 +9,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -43,6 +44,12 @@ class RetrofitClient {
 
     public static Retrofit getNewClientWithToken(String baseUrl, final Context context) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+        // TODO: Remove this interceptor
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(interceptor);
+
         builder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

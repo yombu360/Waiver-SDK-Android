@@ -3,12 +3,15 @@ package com.yombu.waiverlibrary;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.yombu.waiverlibrary.callbacks.YombuInitializationCallback;
 import com.yombu.waiverlibrary.callbacks.YombuWaiverProcessingCallback;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -88,96 +91,68 @@ public class YombuWaiver {
     public YombuWaiver displayWaiver(YombuWaiverProcessingCallback waiverCallback) {
         if (isInitialized()) {
             SessionCallbacks.getInstance().setWaiverCallback(waiverCallback);
-            myContext.startActivity(new Intent(myContext, ActivityWaiver.class));
+            Intent waiverActivityIntent = new Intent(myContext, ActivityWaiver.class);
+            waiverActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            myContext.startActivity(waiverActivityIntent);
         } else {
             waiverCallback.onWaiverFailure("This app is not initialized!");
         }
         return myInstance;
     }
 
-    public YombuWaiver setMindbodyId(String mindbodyId) {
-        Session.getInstance().setMindbodyId(mindbodyId);
+    public YombuWaiver addString(String key, String value) {
+        String string = null;
+        if (value != null) {
+            string = value.trim();
+        }
+        Session.getInstance().addUserData(key, string);
         return myInstance;
     }
 
-    public YombuWaiver setName(String firstName, String lastName) {
-        Session.getInstance().setFirstName(firstName);
-        Session.getInstance().setLastName(lastName);
+    public YombuWaiver addDate(String key, Date value) {
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DOB_FORMAT, Locale.US);
+        String birthday = formatter.format(value);
+        Session.getInstance().addUserData(key, birthday);
         return myInstance;
     }
 
-    public YombuWaiver setPhone(String phone) {
-        Session.getInstance().setPhone(phone);
-        return myInstance;
-    }
-
-    public YombuWaiver setEmail(String email) {
-        Session.getInstance().setEmail(email);
-        return myInstance;
-    }
-
-    public YombuWaiver setDateOfBirth(Date dateOfBirth) {
-        Session.getInstance().setBirthday(dateOfBirth);
-        return myInstance;
-    }
-
-    public YombuWaiver setGender(Gender gender) {
-        switch (gender) {
+    public YombuWaiver addGender(String key, Gender value) {
+        String gender = null;
+        switch (value) {
             case MALE:
-                Session.getInstance().setGender(Constants.GENDER_MALE);
+                gender = Constants.GENDER_MALE;
                 break;
 
             case FEMALE:
-                Session.getInstance().setGender(Constants.GENDER_FEMALE);
+                gender = Constants.GENDER_FEMALE;
                 break;
 
             case OTHER:
-                Session.getInstance().setGender(Constants.GENDER_OTHER);
+                gender = Constants.GENDER_OTHER;
                 break;
+        }
+        Session.getInstance().addUserData(key, gender);
+        return myInstance;
+    }
+
+    public YombuWaiver addList(String key, List<String> value) {
+        String string = null;
+        if (value.size() > 0) {
+            string = TextUtils.join("||", value);
+        }
+        Session.getInstance().addUserData(key, string);
+        return myInstance;
+    }
+
+    public YombuWaiver addMinorsList(List<Minor> minors) {
+        if (minors != null) {
+            Session.getInstance().setMinors(minors);
         }
         return myInstance;
     }
 
-    public YombuWaiver setCiNumber(String ciNumber) {
-        Session.getInstance().setCiNumber(ciNumber);
-        return myInstance;
-    }
-
-    public YombuWaiver setUsernamePassword(String username, String password) {
-        Session.getInstance().setUsername(username);
-        Session.getInstance().setPassword(password);
-        return myInstance;
-    }
-
-    public YombuWaiver setAddress(String address, String city, String state, String postalCode, String countryShortCode) {
-        Session.getInstance().setAddress(address);
-        Session.getInstance().setCity(city);
-        Session.getInstance().setState(state);
-        Session.getInstance().setZip(postalCode);
-        Session.getInstance().setCountry(countryShortCode);
-        return myInstance;
-    }
-
-    public YombuWaiver setGuardianName(String guardianFirstName, String guardianLastName) {
-        Session.getInstance().setGuardianFirstName(guardianFirstName);
-        Session.getInstance().setGuardianLastName(guardianLastName);
-        return myInstance;
-    }
-
-    public YombuWaiver setEmergencyContact(String emergencyContactFirstName, String emergencyContactLastName, String emergencyContactPhone) {
-        Session.getInstance().setEmergencyContactFirstName(emergencyContactFirstName);
-        Session.getInstance().setEmergencyContactLastName(emergencyContactLastName);
-        Session.getInstance().setEmergencyContactPhone(emergencyContactPhone);
-        return myInstance;
-    }
-
-    public YombuWaiver addMinor(String minorFirstName, String minorLastName, Date minorDateOfBirth) {
-        Session.getInstance().addMinor(minorFirstName, minorLastName, minorDateOfBirth);
-        return myInstance;
-    }
-
-    public YombuWaiver setHearAboutUsOptions(List<String> hearAboutUsOptions) {
-        Session.getInstance().setHearAboutUsOptions(hearAboutUsOptions);
+    public YombuWaiver addMinor(Minor minor) {
+        Session.getInstance().addMinor(minor);
         return myInstance;
     }
 
@@ -193,6 +168,31 @@ public class YombuWaiver {
 
     public enum Gender {
         MALE, FEMALE, OTHER
+    }
+
+    public class Keys {
+        // Constants Network API Keys
+        public static final String MINDBODY_ID = "mindbody_id";
+        public static final String FIRST_NAME = "first_name";
+        public static final String LAST_NAME = "last_name";
+        public static final String PHONE = "phone";
+        public static final String EMAIL = "email";
+        public static final String BIRTHDAY = "birthday";
+        public static final String GENDER = "gender";
+        public static final String USERNAME = "username";
+        public static final String PASSWORD = "password";
+        public static final String ADDRESS = "address";
+        public static final String CITY = "city";
+        public static final String STATE = "state";
+        public static final String ZIP = "zip";
+        public static final String COUNTRY = "country";
+        public static final String GUARDIAN_FIRST_NAME = "guardian_first_name";
+        public static final String GUARDIAN_LAST_NAME = "guardian_last_name";
+        public static final String EMERGENCY_CONTACT_FIRST_NAME = "emergency_contact_first_name";
+        public static final String EMERGENCY_CONTACT_LAST_NAME = "emergency_contact_last_name";
+        public static final String EMERGENCY_CONTACT_PHONE = "emergency_contact_phone";
+        public static final String HEAR_ABOUT_US = "hear_about_us";
+        public static final String REFERRAL = "referral";
     }
 
 }
