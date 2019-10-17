@@ -40,8 +40,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    // TODO: Remove this interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
 
     // Google Common for Hashing and HashCode
     implementation 'com.google.guava:guava:26.0-android'
