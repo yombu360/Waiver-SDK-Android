@@ -181,8 +181,6 @@ public class YombuWaiver {
         public static final String EMAIL = "email";
         public static final String BIRTHDAY = "birthday";
         public static final String GENDER = "gender";
-        public static final String USERNAME = "username";
-        public static final String PASSWORD = "password";
         public static final String ADDRESS = "address";
         public static final String CITY = "city";
         public static final String STATE = "state";
@@ -193,7 +191,6 @@ public class YombuWaiver {
         public static final String EMERGENCY_CONTACT_FIRST_NAME = "emergency_contact_first_name";
         public static final String EMERGENCY_CONTACT_LAST_NAME = "emergency_contact_last_name";
         public static final String EMERGENCY_CONTACT_PHONE = "emergency_contact_phone";
-        public static final String HEAR_ABOUT_US = "hear_about_us";
         public static final String REFERRAL = "referral";
     }
 
