@@ -31,10 +31,10 @@ You can get RESELLER_ID, API_KEY, MERCHANT_ID, LOCATION_ID by contacting Yombu a
 5. The required data including first_name, last_name, and more can be passed for processing by using YombuWaiver's instance. The data can be set by using Builder's design pattern like below:
 ```
 YombuWaiver.getInstance()
-    .addString(YombuWaiver.Key.FIRST_NAME, "Yombu")
-    .addString(YombuWaiver.Key.LAST_NAME, "Team")
-    .addString(YombuWaiver.Key.PHONE, "1234567890")
-    .addString(YombuWaiver.Key.EMAIL, "support@yombu.com");
+    .addString(YombuWaiver.Keys.FIRST_NAME, "Yombu")
+    .addString(YombuWaiver.Keys.LAST_NAME, "Team")
+    .addString(YombuWaiver.Keys.PHONE, "1234567890")
+    .addString(YombuWaiver.Keys.EMAIL, "support@yombu.com");
 ```
 
 There are different methods available for setting and clearing different types of data in the YombuWaiver class like below:
@@ -60,7 +60,7 @@ As first name, last name and birthday are set at the time of creating an instanc
 - `setLastName(LAST_NAME: String)` => Updates the `LAST_NAME` of current minor.
 - `setBirthday(BIRTHDAY: Date)` => Updates the `BIRTHDAY` of current minor.
 
-There are also some of the standard keys for setting common data that needs to sent to the server. They are inside YombuWaiver.Key class as below:
+There are also some of the standard keys for setting common data that needs to sent to the server. They are inside YombuWaiver.Keys class as below:
 - `MINDBODY_ID` => Used to set Mindbody ID of the customer.
 - `FIRST_NAME` => Used to set First Name of the customer.
 - `LAST_NAME` => Used to set Last Name of the customer.
